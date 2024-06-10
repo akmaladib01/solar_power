@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
   var isObsecure = true.obs;
 
   void _userLogin() async {
-    try{
+    try {
       int id = 0;
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
@@ -31,9 +31,12 @@ class _LoginState extends State<Login> {
       String phone = "";
       String address = "";
       LoginUser logins = LoginUser(id, username, phone, address, email, password);
+
       if (await logins.login()) {
+        // Save logged-in user data globally using GetX
+        Get.put(logins);
+
         setState(() {
-          //users.add(logins);
           emailController.clear();
           passwordController.clear();
 
@@ -41,20 +44,19 @@ class _LoginState extends State<Login> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Dashboard(
-              username: logins.username,
-            ),),
+            MaterialPageRoute(
+              builder: (context) => Dashboard(
+                username: logins.username,
+              ),
+            ),
           );
         });
-
-      }else {
+      } else {
         _showMessage("Invalid email or password.");
       }
       emailController.clear();
       passwordController.clear();
-
-    }
-    catch(e) {
+    } catch (e) {
       _showMessage(e.toString());
     }
   }

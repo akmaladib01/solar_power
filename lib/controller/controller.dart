@@ -9,8 +9,8 @@ class RequestController {
   final Map<String, String> _headers = {};
   dynamic _resultData;
 
-  RequestController({required this.path, this.server =
-  "http://192.168.0.133"});
+  RequestController({required this.path, this.server = "http://192.168.0.133"});
+
   setBody(Map<String, dynamic> data) {
     _body.clear();
     _body.addAll(data);
@@ -45,16 +45,18 @@ class RequestController {
 
   void _parseResult() {
     try {
-      print("raw response:${_res?.body}");
-      _resultData = jsonDecode(_res?.body?? "");
-    }catch(ex){
+      print("Raw response: ${_res?.body}");
+      _resultData = jsonDecode(_res?.body ?? "");
+    } catch (ex) {
       _resultData = _res?.body;
-      print("exception in http result parsing ${ex}");
+      print("Exception in HTTP result parsing: $ex");
     }
   }
+
   dynamic result() {
     return _resultData;
   }
+
   int status() {
     return _res?.statusCode ?? 0;
   }

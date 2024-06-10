@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:solar_power/analytic_screen.dart';
+import 'package:solar_power/device_list.dart';
 
 import 'device_screen.dart';
 import 'history_screen.dart';
@@ -79,7 +80,7 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   itemDashboard('Analytics', CupertinoIcons.graph_circle, Colors.green, context, AnalyticPage()),
                   itemDashboard('History', Icons.history, Colors.deepOrange, context, History()),
-                  itemDashboard('Audience', CupertinoIcons.person_2, Colors.purple, context, Device()),
+                  itemDashboard('Devices', Icons.devices_other, Colors.purple, context, DeviceListPage()),
                   // itemDashboard('Comments', CupertinoIcons.chat_bubble_2, Colors.brown, context, CommentsPage()),
                   // itemDashboard('Revenue', CupertinoIcons.money_dollar_circle, Colors.indigo, context, RevenuePage()),
                   // itemDashboard('Upload', CupertinoIcons.add_circled, Colors.teal, context, UploadPage()),
