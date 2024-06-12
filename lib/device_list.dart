@@ -5,7 +5,6 @@ import 'model/device_model.dart';
 import 'model/login_model.dart';
 
 class DeviceListPage extends StatefulWidget {
-
   @override
   _DeviceListPageState createState() => _DeviceListPageState();
 }
@@ -28,14 +27,12 @@ class _DeviceListPageState extends State<DeviceListPage> {
   }
 
   Future<void> _deleteDevice(DeviceModel device) async {
-    bool deleted = await device.deleteDeviceByName(device.name);
+    bool deleted = await device.deleteDeviceByName(device.deviceId);
     if (deleted) {
       _refreshDeviceList();
-      // Show success message if needed
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Device deleted successfully')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Device deleted successfully')));
     } else {
-      // Show error message if deletion fails
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to delete device')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to delete device')));
     }
   }
 
@@ -51,7 +48,7 @@ class _DeviceListPageState extends State<DeviceListPage> {
               if (value == 'Register New Device') {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Device()),
+                  MaterialPageRoute(builder: (context) => Device()), // Adjusted for your register device screen
                 ).then((result) {
                   if (result == true) {
                     _refreshDeviceList();
@@ -60,7 +57,7 @@ class _DeviceListPageState extends State<DeviceListPage> {
               }
             },
             itemBuilder: (BuildContext context) {
-              return {'Register New Device', 'Option 2'}.map((String choice) {
+              return {'Register New Device'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),

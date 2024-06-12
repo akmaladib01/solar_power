@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -178,7 +177,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
   Future<void> verifyEmail() async {
     try {
       final response = await http.post(
-        Uri.parse("http://192.168.0.133/solarpower/verifyemail.php"),
+        Uri.parse("http://10.131.73.249/solarpower/verifyemail.php"),
         body: {'email': emailController.text},
       );
 
@@ -213,7 +212,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
       };
 
       final response = await http.post(
-        Uri.parse("http://192.168.0.133/solarpower/recoverpassword.php"),
+        Uri.parse("http://10.131.73.249/solarpower/recoverpassword.php"),
         body: postData,
       );
 

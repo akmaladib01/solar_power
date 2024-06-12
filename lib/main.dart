@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:solar_power/analytic_screen.dart';
 
 import 'login.dart';
 

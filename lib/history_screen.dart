@@ -35,7 +35,7 @@ class _HistoryState extends State<History> {
 
   Future<void> fetchData(String filter) async {
     try {
-      final response = await http.get(Uri.parse('http://192.168.0.133/solarpower/history.php?filter=$filter'));
+      final response = await http.get(Uri.parse('http://10.131.73.249/solarpower/history.php?filter=$filter'));
 
       if (response.statusCode == 200) {
         setState(() {

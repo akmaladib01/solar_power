@@ -35,9 +35,6 @@ class _LoginState extends State<Login> {
         Get.put(logins);
 
         setState(() {
-          emailController.clear();
-          passwordController.clear();
-
           _showMessage("Login Successful.");
 
           Navigator.pushReplacement(
@@ -64,6 +61,7 @@ class _LoginState extends State<Login> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(msg),
+          backgroundColor: msg == "Login Successful." ? Colors.green : Colors.red,
         ),
       );
     }

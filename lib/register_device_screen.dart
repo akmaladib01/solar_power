@@ -181,9 +181,18 @@ class _DeviceState extends State<Device> {
                       },
                     ),
                     SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: _registerDevice,
-                      child: Text('Register Device'),
+                    Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton.icon(
+                        onPressed: _registerDevice,
+                        label: Text('Register', style: TextStyle(fontSize: 14)),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, backgroundColor: Colors.blueAccent, padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ), // Text color
+                        ),
+                      ),
                     ),
                   ],
                 ),

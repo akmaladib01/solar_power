@@ -46,7 +46,7 @@ class _AnalyticPageState extends State<AnalyticPage> {
 
   Future<void> fetchData() async {
     try {
-      final response = await http.get(Uri.parse('http://192.168.0.133/solarpower/gettingdata.php'));
+      final response = await http.get(Uri.parse('http://10.131.73.249/solarpower/gettingdata.php'));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

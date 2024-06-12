@@ -57,12 +57,10 @@ class DeviceModel {
     }
   }
 
-  Future<bool> deleteDeviceByName(String name) async {
-    RequestController req = RequestController(path: "/solarpower/delete_device.php?name=$name");
-    req.setBody({'name': name});
+  Future<bool> deleteDeviceByName(int deviceId) async {
+    RequestController req = RequestController(path: "/solarpower/delete_device.php?device_id=$deviceId");
+    req.setBody({'deviceId': deviceId});
     await req.post();
     return req.status() == 200;
   }
-
-
 }

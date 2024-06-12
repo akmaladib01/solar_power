@@ -10,7 +10,7 @@ class RequestController_SignUp {
   dynamic _resultData;
 
   RequestController_SignUp({required this.path, this.server =
-  "http://192.168.0.133"});
+  "http://10.131.73.249"});
   setBody(Map<String, dynamic> data) {
     _body.clear();
     _body.addAll(data);
