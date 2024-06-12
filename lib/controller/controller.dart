@@ -43,6 +43,14 @@ class RequestController {
     _parseResult();
   }
 
+  Future<void> delete() async {
+    _res = await http.delete(
+      Uri.parse(server + path),
+      headers: _headers,
+    );
+    _parseResult();
+  }
+
   void _parseResult() {
     try {
       print("Raw response: ${_res?.body}");

@@ -1,8 +1,6 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solar_power/register.dart';
-
 import 'background.dart';
 import 'dashboard.dart';
 import 'forgot_password.dart';

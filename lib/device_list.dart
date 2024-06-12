@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'device_screen.dart';
+import 'register_device_screen.dart';
 import 'model/device_model.dart';
 import 'model/login_model.dart';
 
 class DeviceListPage extends StatefulWidget {
-  const DeviceListPage({Key? key}) : super(key: key);
 
   @override
   _DeviceListPageState createState() => _DeviceListPageState();
@@ -13,40 +12,30 @@ class DeviceListPage extends StatefulWidget {
 
 class _DeviceListPageState extends State<DeviceListPage> {
   late Future<List<DeviceModel>> _deviceListFuture;
-  late int userId;
+  late LoginUser _loggedInUser;
 
   @override
   void initState() {
     super.initState();
-    LoginUser loggedInUser = Get.find<LoginUser>();
-    userId = loggedInUser.id;
+    _loggedInUser = Get.find<LoginUser>();
     _refreshDeviceList();
   }
 
   void _refreshDeviceList() {
     setState(() {
-      _deviceListFuture = DeviceModel.fetchDevices(userId);
+      _deviceListFuture = DeviceModel.fetchDevices(_loggedInUser.id);
     });
   }
 
-  Future<void> _deleteDevice(int deviceId) async {
-    print('Deleting device with ID: $deviceId'); // Debug print
-    try {
-      bool success = await DeviceModel.deleteDevice(deviceId);
-      if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Device deleted successfully'),
-        ));
-        _refreshDeviceList();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Failed to delete device'),
-        ));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
+  Future<void> _deleteDevice(DeviceModel device) async {
+    bool deleted = await device.deleteDeviceByName(device.name);
+    if (deleted) {
+      _refreshDeviceList();
+      // Show success message if needed
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Device deleted successfully')));
+    } else {
+      // Show error message if deletion fails
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to delete device')));
     }
   }
 
@@ -95,20 +84,7 @@ class _DeviceListPageState extends State<DeviceListPage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 DeviceModel device = snapshot.data![index];
-                return Dismissible(
-                  key: Key(device.deviceId.toString()),
-                  direction: DismissDirection.endToStart,
-                  onDismissed: (direction) {
-                    _deleteDevice(device.deviceId);
-                  },
-                  background: Container(
-                    color: Colors.red,
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(Icons.delete, color: Colors.white),
-                  ),
-                  child: _buildDeviceCard(device),
-                );
+                return _buildDeviceCard(device);
               },
             );
           }
@@ -153,6 +129,12 @@ class _DeviceListPageState extends State<DeviceListPage> {
                 Text(
                   'Category: ${device.category}',
                   style: TextStyle(fontSize: 16, color: Colors.black54),
+                ),
+                Spacer(), // Add Spacer to push the delete button to the end
+                IconButton(
+                  onPressed: () => _deleteDevice(device), // Trigger delete action
+                  icon: Icon(Icons.delete),
+                  color: Colors.red,
                 ),
               ],
             ),

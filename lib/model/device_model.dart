@@ -17,11 +17,11 @@ class DeviceModel {
 
   factory DeviceModel.fromJson(Map<String, dynamic> json) {
     return DeviceModel(
-      deviceId: json['deviceId'] ?? 0, // Provide a default value if null
-      name: json['name'] ?? '', // Provide a default value if null
-      type: json['type'] ?? '', // Provide a default value if null
-      category: json['category'] ?? '', // Provide a default value if null
-      userId: json['userId'] ?? 0, // Provide a default value if null
+      deviceId: json['deviceId'] ?? 0,
+      name: json['name'] ?? '',
+      type: json['type'] ?? '',
+      category: json['category'] ?? '',
+      userId: json['userId'] ?? 0,
     );
   }
 
@@ -57,10 +57,12 @@ class DeviceModel {
     }
   }
 
-  static Future<bool> deleteDevice(int deviceId) async {
-    RequestController req = RequestController(path: "/solarpower/delete_device.php");
-    req.setBody({'deviceId': deviceId});
+  Future<bool> deleteDeviceByName(String name) async {
+    RequestController req = RequestController(path: "/solarpower/delete_device.php?name=$name");
+    req.setBody({'name': name});
     await req.post();
     return req.status() == 200;
   }
+
+
 }

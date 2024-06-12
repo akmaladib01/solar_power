@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:solar_power/analytic_screen.dart';
 import 'package:solar_power/device_list.dart';
-
-import 'device_screen.dart';
+import 'package:solar_power/saving_screen.dart';
 import 'history_screen.dart';
-
 
 class Dashboard extends StatefulWidget {
   final String username;
@@ -81,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
                   itemDashboard('Analytics', CupertinoIcons.graph_circle, Colors.green, context, AnalyticPage()),
                   itemDashboard('History', Icons.history, Colors.deepOrange, context, History()),
                   itemDashboard('Devices', Icons.devices_other, Colors.purple, context, DeviceListPage()),
-                  // itemDashboard('Comments', CupertinoIcons.chat_bubble_2, Colors.brown, context, CommentsPage()),
+                  itemDashboard('Savings', Icons.savings_outlined, Colors.brown, context, SavingPage()),
                   // itemDashboard('Revenue', CupertinoIcons.money_dollar_circle, Colors.indigo, context, RevenuePage()),
                   // itemDashboard('Upload', CupertinoIcons.add_circled, Colors.teal, context, UploadPage()),
                   // itemDashboard('About', CupertinoIcons.question_circle, Colors.blue, context, AboutPage()),
@@ -138,17 +135,4 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: Dashboard(username: 'User'),
-    theme: ThemeData(
-      primarySwatch: Colors.orange,
-      textTheme: TextTheme(
-        headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        titleMedium: TextStyle(fontSize: 18),
-      ),
-    ),
-  ));
 }
